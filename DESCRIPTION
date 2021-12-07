@@ -1,0 +1,53 @@
+Package: scrapR
+Title: scraps output import and processing in R
+Version: 0.0.1
+Description: Functions to import scraps alternative poly(A) site usage quantification into R, and further processing and statistical testing.
+Authors@R: 
+    c(person(given = "Rui",
+             family = "Fu",
+             role = c("aut", "cre"),
+             email = "raysinensis@gmail.com"),
+      person(given = "Austin",
+             family = "Gillen",
+             role = "ctb",
+             email = "austin.gillen@ucdenver.edu"),
+      person("RNA Bioscience Initiative", role = c("fnd"))
+      )
+License: MIT + file LICENSE
+Depends:
+    R (>= 4.0)
+Imports: 
+    cowplot,
+    dplyr,
+    ggplot2,
+    Matrix,
+    readr,
+    stringr,
+    tibble,
+    tidyr,
+    stats,
+    methods,
+    SingleCellExperiment,
+    SummarizedExperiment,
+    matrixStats,
+    S4Vectors,
+    utils
+Suggests:
+    covr,
+    knitr,
+    rmarkdown,
+    testthat,
+    BiocStyle,
+    BiocManager,
+    remotes
+biocViews: SingleCell, Sequencing, GeneExpression
+BugReports: https://github.com/rnabioco/scrapR/issues
+URL: http://github.com/rnabioco/scrapR#readme,
+    https://rnabioco.github.io/scrapR/
+VignetteBuilder: 
+    knitr
+ByteCompile: true
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+LazyData: true
