@@ -8,6 +8,7 @@
 #' @param pseudo_n number of pseudobulk profiles to make for each group
 #' @param types filter to only these types of PA sites, set to NULL to use all
 #' @param indep_fil independent filtering for DEXSeq
+#' @import dplyr tidyr stringr
 #' @return DEXSeq result table
 #' @export
 PA_DEXSeq <- function(mat,

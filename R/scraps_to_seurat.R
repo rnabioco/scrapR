@@ -9,7 +9,7 @@
 #' @param types filter to only these types of PA sites, set to NULL to use all
 #' @param types2 another filter to only these types of PA sites, set to NULL to use all
 #' @param pf data.frame with SAF first column and position factor by gene, calculated by `parse_saf_pf`
-#' @import readr dplyr stringr
+#' @import readr dplyr stringr tidyr
 #' @return count matrix
 #' @examples 
 #' s_small <- scraps_to_matrix("sample_R2_counts.tsv.gz",
@@ -243,7 +243,7 @@ parse_saf_pf <- function(file,
 #' @param file SAF file used with Scraps
 #' @param types filter to only these types of PA sites, set to NULL to use all
 #' @param sep separator between fields for full name
-#' @import readr dplyr stringr
+#' @import readr dplyr stringr tidyr
 #' @return data.frame
 #' @export
 parse_saf <- function(file, types = FALSE, sep = ";") {
