@@ -9,6 +9,7 @@
 #' @param types filter to only these types of PA sites, set to NULL to use all
 #' @param types2 another filter to only these types of PA sites, set to NULL to use all
 #' @param pf data.frame with SAF first column and position factor by gene, calculated by `parse_saf_pf`
+#' @import readr dplyr
 #' @return count matrix
 #' @examples 
 #' s_small <- scraps_to_matrix("sample_R2_counts.tsv.gz",
@@ -157,6 +158,7 @@ scraps_to_matrix <- function(file,
 #' @param alt_only if TRUE, only keep genes with alternative polyA sites
 #' @param types filter to only these types of PA sites, set to NULL to use all
 #' @param pf data.frame with SAF first column and position factor by gene, calculated by `parse_saf_pf`
+#' @import dplyr Seurat
 #' @return Seurat object with inserted assay
 #' @examples 
 #' s_small <- scraps_to_seurat("sample_R2_counts.tsv.gz",
@@ -190,6 +192,7 @@ scraps_to_seurat <- function(file, object,
 #' @param file SAF file used with Scraps
 #' @param types filter to only these types of PA sites, set to NULL to use all
 #' @param alt_only if TRUE, only keep genes with alternative polyA sites
+#' @import readr dplyr
 #' @return data.frame with SAF first column and position factor by gene
 #' @examples 
 #' saf <- parse_saf_pf("ref/polyadb32.hg38.saf.gz")
@@ -236,6 +239,14 @@ parse_saf_pf <- function(file,
   bed3 %>% select(GeneID, pf)
 }
 
+#' Read SAF annotation file
+#' 
+#' @param file SAF file used with Scraps
+#' @param types filter to only these types of PA sites, set to NULL to use all
+#' @param sep separator between fields for full name
+#' @import readr dplyr
+#' @return data.frame
+#' @export
 parse_saf <- function(file, types = FALSE, sep = ";") {
   # read SAF and split for gene symbol
   saf <- read_tsv(file) %>% 
@@ -264,11 +275,22 @@ parse_saf <- function(file, types = FALSE, sep = ";") {
   bed1
 }
 
+#' Parse GTF annotation file
+#' 
+#' @param file SAF file used with Scraps
+#' @return data.frame
+#' @export
 parse_gtf <- function(file) {
   gtf <- rtracklayer::import(file)
   tbl_gtf <- as.tbl_intervalcustom(gtf)
 }
 
+#' Convert GTF to tibble
+#' 
+#' @param x GTF from import
+#' @import dplyr
+#' @return data.frame
+#' @export
 as.tbl_intervalcustom <- function(x) {
   res <- tibble(
     chrom = as.character(x@seqnames),
