@@ -41,7 +41,8 @@ Suggests:
     BiocManager,
     remotes,
     DEXSeq,
-    valr
+    valr,
+    Seurat
 biocViews: SingleCell, Sequencing, GeneExpression
 BugReports: https://github.com/rnabioco/scrapR/issues
 URL: http://github.com/rnabioco/scrapR#readme,
