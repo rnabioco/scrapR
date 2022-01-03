@@ -31,7 +31,8 @@ Imports:
     SummarizedExperiment,
     matrixStats,
     S4Vectors,
-    utils
+    utils,
+    Seurat
 Suggests:
     covr,
     knitr,
@@ -41,8 +42,7 @@ Suggests:
     BiocManager,
     remotes,
     DEXSeq,
-    valr,
-    Seurat
+    valr
 biocViews: SingleCell, Sequencing, GeneExpression
 BugReports: https://github.com/rnabioco/scrapR/issues
 URL: http://github.com/rnabioco/scrapR#readme,

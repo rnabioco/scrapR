@@ -41,7 +41,3 @@ count matrix
 \description{
 Read scraps output from umi_tools to sparseMatrix
 }
-\examples{
-s_small <- scraps_to_matrix("sample_R2_counts.tsv.gz",
-                            alt_only = FALSE)
-}

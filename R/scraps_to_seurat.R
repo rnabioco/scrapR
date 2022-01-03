@@ -11,9 +11,6 @@
 #' @param pf data.frame with SAF first column and position factor by gene, calculated by `parse_saf_pf`
 #' @import readr dplyr stringr tidyr
 #' @return count matrix
-#' @examples 
-#' s_small <- scraps_to_matrix("sample_R2_counts.tsv.gz",
-#'                             alt_only = FALSE)
 #' @export
 scraps_to_matrix <- function(file,
                              n_min = 5,
@@ -160,10 +157,6 @@ scraps_to_matrix <- function(file,
 #' @param pf data.frame with SAF first column and position factor by gene, calculated by `parse_saf_pf`
 #' @import dplyr Seurat
 #' @return Seurat object with inserted assay
-#' @examples 
-#' s_small <- scraps_to_seurat("sample_R2_counts.tsv.gz",
-#'                             SeuratObject::pbmc_small,
-#'                             alt_only = FALSE)
 #' @export
 scraps_to_seurat <- function(file, object, 
                              assay_name = "Asite",
@@ -193,8 +186,6 @@ scraps_to_seurat <- function(file, object,
 #' @param alt_only if TRUE, only keep genes with alternative polyA sites
 #' @import readr dplyr
 #' @return data.frame with SAF first column and position factor by gene
-#' @examples 
-#' saf <- parse_saf_pf("ref/polyadb32.hg38.saf.gz")
 #' @export
 parse_saf_pf <- function(file,
                          types = "3'UTR",

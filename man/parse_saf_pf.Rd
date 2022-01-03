@@ -19,6 +19,3 @@ data.frame with SAF first column and position factor by gene
 \description{
 Parse SAF annotation file for position factor (pf) values
 }
-\examples{
-saf <- parse_saf_pf("ref/polyadb32.hg38.saf.gz")
-}

@@ -33,8 +33,3 @@ Seurat object with inserted assay
 \description{
 Add scraps output to existing seurat object as new assay
 }
-\examples{
-s_small <- scraps_to_seurat("sample_R2_counts.tsv.gz",
-                            SeuratObject::pbmc_small,
-                            alt_only = FALSE)
-}
