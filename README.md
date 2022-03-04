@@ -1,5 +1,5 @@
 # scrapR
-R package for importing and processing [`scraps`](https://github.com/rnabioco/scraps) reference and output
+R package for importing and processing [`scraps`](https://github.com/rnabioco/scraps) reference and output. Python version of equivalent support is under development.
 
 ### read reference (if converting to gene-level psi values)
 ```
