@@ -1,7 +1,7 @@
 # scrapR
-Supplementary R package for importing and processing [`scraps`](https://github.com/rnabioco/scraps) reference and output. Python-equivalent support is under development.
-
 <img src="inst/flow.png" width="400" align="right">
+
+Supplementary R package for importing and processing [`scraps`](https://github.com/rnabioco/scraps) reference and output. Python-equivalent support is under development.
 
 ### read reference (if converting to gene-level psi values)
 ```
