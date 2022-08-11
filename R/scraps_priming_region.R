@@ -2,17 +2,30 @@
 #' 
 #' @param files scraps output table files containing 
 #' @param cell_ids if given, use only these cell barcodes, and fill in empty ones
+#' @param batch batch prefix to use in order for list of files
 #' @return count list for regions
 #' @export
+#' 
 scraps_to_region_counts <- function(files,
-                             cell_ids = NULL) {
+                                    cell_ids = NULL,
+                                    batch = NULL,
+                                    batch_sep = "-") {
   ids <- cell_ids
-  temp <- map(seq_along(files),
-              function(x) read_tsv(files[x]))
+  if (!is.null(batch)) {
+    temp <- map(seq_along(files),
+                function(x) read_tsv(files[x]) %>% mutate(cell = str_c(batch[x], cell, sep = batch_sep)))
+  } else {
+    temp <- map(seq_along(files),
+                function(x) read_tsv(files[x]))
+  }
+  
   temp <- do.call(rbind, temp)
   
+  if (!is.null(ids)) {
+    temp <- temp %>% filter(cell %in% ids)
+  }
+  
   temp2 <- temp %>%
-    filter(cell %in% ids) %>%
     separate(gene, 
              sep = "_", 
              into = c("gene", NA,
@@ -69,6 +82,7 @@ scraps_to_region_counts <- function(files,
 #' @param row if TRUE, target rows, if FALSE, columns
 #' @return 0 filled and ordered matrix
 #' @export
+#' 
 fill_mat <- function(x, vec, row = TRUE) {
   if (row) {
     emptys <- setdiff(vec, rownames(x))
@@ -105,6 +119,7 @@ fill_mat <- function(x, vec, row = TRUE) {
 #' @param n_min  minimum number of observations for a gene to be kept
 #' @return count list for regions
 #' @export
+#' 
 filter_countlist <- function(countlist,
                              n_min = 100) {
   shared_genes <- sapply(countlist, rownames, simplify = F) %>% unlist() %>% table()
@@ -143,6 +158,7 @@ filter_countlist <- function(countlist,
 #' @param k number of bins
 #' @return percentage binned averages for specific region
 #' @export
+#' 
 dfnot_avg <- function(df, dfgene, vec, k,
                       utr5, utr3, cds, intron) {
   sapply(1:k,
@@ -204,6 +220,7 @@ dfnot_avg <- function(df, dfgene, vec, k,
 #' @param k quantiles to use, binned by 2000 genes if not given
 #' @return data.frame with count bins
 #' @export
+#' 
 countlist_to_bins <- function(countlist,
                               vec,
                               genes = NA,
@@ -275,10 +292,11 @@ countlist_to_bins <- function(countlist,
 
 #' calculation cohens_d effect size
 #' 
-#' @param x x
-#' @param y y
+#' @param x
+#' @param y
 #' @return cohens_d effect size
 #' @export
+#' 
 cohens_d <- function(x, y) {
   lx <- length(x)- 1
   ly <- length(y)- 1
@@ -301,6 +319,7 @@ cohens_d <- function(x, y) {
 #' @param ctrl target control set in col
 #' @return data.frame with stats (mean diff and effecti size)
 #' @export
+#' 
 bin_effectsize <- function(df,
                            target_loc = "utr3",
                            col1 = NA,
@@ -328,4 +347,39 @@ bin_effectsize <- function(df,
               p = t.test(score, rep(0, length(score)))$p.value) %>% 
     ungroup()
   temp2 %>% mutate(p = ifelse(is.nan(p), 1, p))
+}
+
+#' calculation mean diff and effect size of utr3 priming
+#' 
+#' @param countlist countlist
+#' @param knn_matrix nearest neightbors in matrix format, can be calculated by enabling return.neighbor in Seurat::FindNeighbors
+#' @param cell_ids cell barcodes to use
+#' @return countlist after smoothing
+#' @export
+#' 
+knn_smoothing <- function(countlist,
+                          knn_matrix,
+                          cell_ids) {
+  countlist$utr5 <- countlist$utr5[,cell_ids]
+  for (cell1 in cell_ids) {
+    countlist$utr5[, cell1] <- countlist$utr5[, knn_matrix[cell1,]] %>% rowSums()
+  }
+  
+  countlist$utr3 <- countlist$utr3[,cell_ids]
+  for (cell1 in cell_ids) {
+    countlist$utr3[, cell1] <- countlist$utr3[, knn_matrix[cell1,]] %>% rowSums()
+  }
+  
+  message("intron...")
+  countlist$intron <- countlist$intron[,cell_ids]
+  for (cell1 in cell_ids) {
+    countlist$intron[, cell1] <- countlist$intron[, knn_matrix[cell1,]] %>% rowSums()
+  }
+  
+  countlist$cds <- countlist$cds[,cell_ids]
+  for (cell1 in cell_ids) {
+    countlist$cds[, cell1] <- countlist$cds[, knn_matrix[cell1,]] %>% rowSums()
+  }
+  
+  return(countlist)
 }
