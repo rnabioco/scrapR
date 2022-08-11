@@ -292,8 +292,8 @@ countlist_to_bins <- function(countlist,
 
 #' calculation cohens_d effect size
 #' 
-#' @param x
-#' @param y
+#' @param x x
+#' @param y y
 #' @return cohens_d effect size
 #' @export
 #' 

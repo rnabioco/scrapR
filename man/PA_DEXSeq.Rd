@@ -8,12 +8,15 @@ PA_DEXSeq(
   mat,
   cell_ids1,
   cell_ids2,
-  fc_cut = 0.5,
+  fc_cut = 0.25,
   padj_cut = 0.1,
-  pseudo_n = 6,
+  pseudo_n = 4,
   seed = 1,
   type = c("3'UTR"),
-  indep_fil = TRUE
+  indep_fil = TRUE,
+  sep = ";",
+  groups1 = NA,
+  groups2 = NA
 )
 }
 \arguments{
@@ -30,6 +33,12 @@ PA_DEXSeq(
 \item{pseudo_n}{number of pseudobulk profiles to make for each group}
 
 \item{indep_fil}{independent filtering for DEXSeq}
+
+\item{sep}{separator to split and merge names}
+
+\item{groups1}{vector of grouping for cell_ids1}
+
+\item{groups2}{vector of grouping for cell_ids2}
 
 \item{types}{filter to only these types of PA sites, set to NULL to use all}
 }

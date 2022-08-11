@@ -4,12 +4,14 @@
 \alias{scraps_to_region_counts}
 \title{Read scraps output to read counts by region type}
 \usage{
-scraps_to_region_counts(files, cell_ids = NULL)
+scraps_to_region_counts(files, cell_ids = NULL, batch = NULL, batch_sep = "-")
 }
 \arguments{
 \item{files}{scraps output table files containing}
 
 \item{cell_ids}{if given, use only these cell barcodes, and fill in empty ones}
+
+\item{batch}{batch prefix to use in order for list of files}
 }
 \value{
 count list for regions
