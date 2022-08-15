@@ -74,8 +74,8 @@ dm_residuals <-
     }
   }
 
-rbind_csr2 <- function(list, seurat_obj){
-  mat <- do.call("rbind_csr", list)
+rbind_csr_dm <- function(dm_matrices, seurat_obj){
+  mat <- do.call("rbind_csr", dm_matrices)
   colnames(mat) <- Cells(seurat_obj)
   mat
 }
